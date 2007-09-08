@@ -2,7 +2,7 @@
 %define short_name	commons-%{base_name}
 %define name		jakarta-%{short_name}
 %define version		1.4.1
-%define release		3
+%define release		4
 %define	section		free
 %define build_tests	0
 %define gcj_support	1

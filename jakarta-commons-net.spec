@@ -2,7 +2,7 @@
 %define short_name	commons-%{base_name}
 %define name		jakarta-%{short_name}
 %define version		1.4.1
-%define release		4
+%define release		5
 %define	section		free
 %define build_tests	0
 %define gcj_support	1
@@ -31,8 +31,6 @@ BuildRequires:	oro >= 2.0.7
 BuildRequires:	junit >= 3.8.1
 %endif
 %if %{gcj_support}
-Requires(post): java-gcj-compat
-Requires(postun): java-gcj-compat
 BuildRequires:  java-gcj-compat-devel
 %else
 Buildarch:      noarch

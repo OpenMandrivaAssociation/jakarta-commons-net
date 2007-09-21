@@ -1,15 +1,12 @@
 %define base_name	net
 %define short_name	commons-%{base_name}
-%define name		jakarta-%{short_name}
-%define version		1.4.1
-%define release		5
 %define	section		free
 %define build_tests	0
 %define gcj_support	1
 
-Name:		%{name}
-Version:	%{version}
-Release:	%mkrel %{release}
+Name:		jakarta-%{short_name}
+Version:	1.4.1
+Release:	%mkrel 5.0.0
 Epoch:		0
 Summary:	Jakarta Commons Net Package
 License:	Apache License
@@ -26,18 +23,18 @@ BuildRequires:	ant-junit
 BuildRequires:	java-devel
 BuildRequires:	java-javadoc
 BuildRequires:	jpackage-utils >= 0:1.5
-BuildRequires:	oro >= 2.0.7
+BuildRequires:	oro >= 0:2.0.7
 %if %{build_tests}
-BuildRequires:	junit >= 3.8.1
+BuildRequires:	junit >= 0:3.8.1
 %endif
 %if %{gcj_support}
 BuildRequires:  java-gcj-compat-devel
 %else
 Buildarch:      noarch
 %endif
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
-Provides:	%{short_name}
-Obsoletes:	%{short_name}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
+Obsoletes:	%{short_name} < %{epoch}:%{version}-%{release}
+Provides:	%{short_name} = %{epoch}:%{version}-%{release}
 
 %description
 This is an Internet protocol suite Java library originally developed by
@@ -71,10 +68,12 @@ export CLASSPATH=$(build-classpath oro)
 export CLASSPATH=$CLASSPATH:$(build-classpath junit)
 %endif
 %{__perl} -pi -e 's/compile,test/compile/' build.xml
-%ant -Dnoget=true -Dfinal.name=commons-net-%{version} \
+%{ant} -Dnoget=true -Dfinal.name=commons-net-%{version} \
   -Dj2se.api=%{_javadocdir}/java dist
 
 %install
+%{__rm} -rf %{buildroot}
+
 # jars
 install -d -m 755 $RPM_BUILD_ROOT%{_javadir}
 install -m 644 dist/%{short_name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
@@ -83,6 +82,7 @@ install -m 644 dist/%{short_name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{na
 # javadoc
 install -d -m 755 $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
 cp -pr dist/docs/api/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
+%{__ln_s} %{name}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
 %if %{gcj_support}
 %{_bindir}/aot-compile-rpm
@@ -99,15 +99,6 @@ rm -rf $RPM_BUILD_ROOT
 %{clean_gcjdb}
 %endif
 
-%post javadoc
-rm -f %{_javadocdir}/%{name}
-ln -s %{name}-%{version} %{_javadocdir}/%{name}
-
-%postun javadoc
-if [ "$1" = "0" ]; then
-    rm -f %{_javadocdir}/%{name}
-fi
-
 %files
 %defattr(0644,root,root,0755)
 %doc LICENSE.txt
@@ -120,5 +111,4 @@ fi
 %files javadoc
 %defattr(0644,root,root,0755)
 %{_javadocdir}/%{name}-%{version}
-
-
+%{_javadocdir}/%{name}

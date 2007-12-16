@@ -6,7 +6,7 @@
 
 Name:		jakarta-%{short_name}
 Version:	1.4.1
-Release:	%mkrel 5.0.0
+Release:	%mkrel 5.0.1
 Epoch:		0
 Summary:	Jakarta Commons Net Package
 License:	Apache License
@@ -22,7 +22,7 @@ BuildRequires:	ant-junit
 %endif
 BuildRequires:	java-devel
 BuildRequires:	java-javadoc
-BuildRequires:	jpackage-utils >= 0:1.5
+BuildRequires:	java-rpmbuild >= 0:1.5
 BuildRequires:	oro >= 0:2.0.7
 %if %{build_tests}
 BuildRequires:	junit >= 0:3.8.1

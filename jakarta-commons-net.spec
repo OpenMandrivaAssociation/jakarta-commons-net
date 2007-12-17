@@ -32,7 +32,6 @@ BuildRequires:  java-gcj-compat-devel
 %else
 Buildarch:      noarch
 %endif
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 Obsoletes:	%{short_name} < %{epoch}:%{version}-%{release}
 Provides:	%{short_name} = %{epoch}:%{version}-%{release}
 

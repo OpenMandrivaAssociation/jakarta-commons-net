@@ -11,6 +11,7 @@ Epoch:		0
 Summary:	Jakarta Commons Net Package
 License:	Apache License
 Group:		Development/Java
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 #Vendor:         JPackage Project
 #Distribution:   JPackage
 Source0:	http://www.apache.org/dist/jakarta/commons/net/source/commons-net-%{version}-src.tar.bz2

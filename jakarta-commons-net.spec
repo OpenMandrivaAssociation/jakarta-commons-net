@@ -6,7 +6,7 @@
 
 Name:		jakarta-%{short_name}
 Version:	1.4.1
-Release:	%mkrel 5.0.4
+Release:	%mkrel 5.0.5
 Epoch:		0
 Summary:	Jakarta Commons Net Package
 License:	Apache License

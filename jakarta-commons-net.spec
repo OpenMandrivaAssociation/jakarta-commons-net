@@ -6,7 +6,7 @@
 
 Name:		jakarta-%{short_name}
 Version:	1.4.1
-Release:	%mkrel 5.0.5
+Release:	%mkrel 5.0.7
 Epoch:		0
 Summary:	Jakarta Commons Net Package
 License:	Apache License
@@ -75,21 +75,21 @@ export CLASSPATH=$CLASSPATH:$(build-classpath junit)
 %{__rm} -rf %{buildroot}
 
 # jars
-install -d -m 755 %{buildroot}%{_javadir}
-install -m 644 dist/%{short_name}-%{version}.jar %{buildroot}%{_javadir}/%{name}-%{version}.jar
-(cd %{buildroot}%{_javadir} && for jar in *-%{version}*; do ln -sf ${jar} `echo $jar| sed  "s|jakarta-||g"`; done)
-(cd %{buildroot}%{_javadir} && for jar in *-%{version}*; do ln -sf ${jar} `echo $jar| sed  "s|-%{version}||g"`; done)
+install -d -m 755 $RPM_BUILD_ROOT%{_javadir}
+install -m 644 dist/%{short_name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
+(cd $RPM_BUILD_ROOT%{_javadir} && for jar in *-%{version}*; do ln -sf ${jar} `echo $jar| sed  "s|jakarta-||g"`; done)
+(cd $RPM_BUILD_ROOT%{_javadir} && for jar in *-%{version}*; do ln -sf ${jar} `echo $jar| sed  "s|-%{version}||g"`; done)
 # javadoc
-install -d -m 755 %{buildroot}%{_javadocdir}/%{name}-%{version}
-cp -pr dist/docs/api/* %{buildroot}%{_javadocdir}/%{name}-%{version}
-%{__ln_s} %{name}-%{version} %{buildroot}%{_javadocdir}/%{name}
+install -d -m 755 $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
+cp -pr dist/docs/api/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
+%{__ln_s} %{name}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
 %if %{gcj_support}
 %{_bindir}/aot-compile-rpm
 %endif
 
 %clean
-rm -rf %{buildroot}
+rm -rf $RPM_BUILD_ROOT
 
 %if %{gcj_support}
 %post
@@ -112,3 +112,77 @@ rm -rf %{buildroot}
 %defattr(0644,root,root,0755)
 %{_javadocdir}/%{name}-%{version}
 %{_javadocdir}/%{name}
+
+
+%changelog
+* Wed May 04 2011 Oden Eriksson <oeriksson@mandriva.com> 0:1.4.1-5.0.5mdv2011.0
++ Revision: 665807
+- mass rebuild
+
+* Fri Dec 03 2010 Oden Eriksson <oeriksson@mandriva.com> 0:1.4.1-5.0.4mdv2011.0
++ Revision: 606061
+- rebuild
+
+* Wed Mar 17 2010 Oden Eriksson <oeriksson@mandriva.com> 0:1.4.1-5.0.3mdv2010.1
++ Revision: 523004
+- rebuilt for 2010.1
+
+* Wed Sep 02 2009 Christophe Fergeau <cfergeau@mandriva.com> 0:1.4.1-5.0.2mdv2010.0
++ Revision: 425443
+- rebuild
+
+* Thu Feb 14 2008 Thierry Vignaud <tv@mandriva.org> 0:1.4.1-5.0.1mdv2009.0
++ Revision: 167949
+- fix no-buildroot-tag
+- kill re-definition of %%buildroot on Pixel's request
+
+* Sun Dec 16 2007 Anssi Hannula <anssi@mandriva.org> 0:1.4.1-5.0.1mdv2008.1
++ Revision: 120917
+- buildrequire java-rpmbuild, i.e. build with icedtea on x86(_64)
+
+* Fri Sep 21 2007 David Walluck <walluck@mandriva.org> 0:1.4.1-5.0.0mdv2008.0
++ Revision: 92015
+- rebuild as archs seem to be out of sync
+- add epochs to BuildRequires
+- version Obsoletes/Provides
+- remove buildroot in %%install
+- create javadoc symlink
+- remove javadoc scriptlets
+
+* Sat Sep 15 2007 Anssi Hannula <anssi@mandriva.org> 0:1.4.1-5mdv2008.0
++ Revision: 87415
+- rebuild to filter out autorequires of GCJ AOT objects
+- remove unnecessary Requires(post) on java-gcj-compat
+
+* Sun Sep 09 2007 Pascal Terjan <pterjan@mandriva.org> 0:1.4.1-4mdv2008.0
++ Revision: 82875
+- rebuild
+
+
+* Thu Mar 15 2007 Christiaan Welvaart <spturtle@mandriva.org> 1.4.1-3mdv2007.1
++ Revision: 143926
+- rebuild for 2007.1
+- Import jakarta-commons-net
+
+* Sun Jun 04 2006 David Walluck <walluck@mandriva.org> 0:1.4-2mdv2007.0
+- rebuild for libgcj.so.7
+- aot-compile
+
+* Tue Jan 17 2006 David Walluck <walluck@mandriva.org> 0:1.4.1-1mdk
+- 1.4.1
+- rediff crosslink patch
+- BuildRequires: ant, java-devel
+
+* Mon May 16 2005 David Walluck <walluck@mandriva.org> 0:1.2.2-3.1mdk
+- release
+
+* Sat Nov 13 2004 Ville Skyttä <scop at jpackage.org> - 0:1.2.2-3jpp
+- BuildRequire ant-junit, thanks to Nicolas Mailhot for the catch.
+- Crosslink with local J2SE API docs, remove extra api/ from javadoc dir.
+
+* Tue Aug 24 2004 Randy Watler <rwatler at finali.com> - 0:1.2.2-2jpp
+- Rebuild with ant-1.6.2
+
+* Mon Jun 28 2004 Kaj J. Niemi <kajtzu@fi.basen.net> 0:1.2.2-1jpp
+- Update to 1.2.2
+

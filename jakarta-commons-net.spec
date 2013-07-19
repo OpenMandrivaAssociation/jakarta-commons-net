@@ -6,12 +6,12 @@
 
 Summary:	Jakarta Commons Net Package
 Name:		jakarta-%{short_name}
-Version:	1.4.1
-Release:	6
+Version:	3.1
+Release:	1
 License:	Apache License
 Group:		Development/Java
 Url:		http://jakarta.apache.org/commons/%{base_name}/
-Source0:	http://www.apache.org/dist/jakarta/commons/net/source/commons-net-%{version}-src.tar.bz2
+Source0:	http://www.apache.org/dist/jakarta/commons/net/source/commons-net-3.1-src.tar.gz
 Patch0:		%{name}-crosslink.patch
 %if !%{gcj_support}
 Buildarch:	noarch
@@ -103,4 +103,5 @@ ln -s %{name}-%{version} %{buildroot}%{_javadocdir}/%{name}
 %files javadoc
 %{_javadocdir}/%{name}-%{version}
 %{_javadocdir}/%{name}
+
 

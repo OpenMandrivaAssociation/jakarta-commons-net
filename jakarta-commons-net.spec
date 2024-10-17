@@ -10,7 +10,7 @@ Version:	1.4.1
 Release:	6
 License:	Apache License
 Group:		Development/Java
-Url:		http://jakarta.apache.org/commons/%{base_name}/
+Url:		https://jakarta.apache.org/commons/%{base_name}/
 Source0:	http://www.apache.org/dist/jakarta/commons/net/source/commons-net-%{version}-src.tar.bz2
 Patch0:		%{name}-crosslink.patch
 %if !%{gcj_support}
